@@ -12,6 +12,8 @@ public class Node implements Comparable<Node>{
     private boolean out;
     private String lastStep;
     private int heuristic;
+    private int last_x;
+    private int last_y;
 
     public Node(List<List<String>> mat) {
         matrix = new ArrayList<>(mat);
@@ -67,9 +69,11 @@ public class Node implements Comparable<Node>{
     }
 
     // Increasing the cost and adding a step to the string after a step was made
-    public void add_move(int price, String step, String where) {
+    public void add_move(int price, String step, String where, int x, int y) {
         this.lastStep = where;
         this.cost = cost+price;
+        last_x = x;
+        last_y = y;
         if(moves.length()<2) {
             moves = moves + step;
         }
@@ -80,7 +84,7 @@ public class Node implements Comparable<Node>{
 
     // checking if it is possible to do step up and return the cost of the step
     public int step_up(int x, int y) {
-        if(this.lastStep.equals("down")) {
+        if(this.lastStep.equals("down") && last_x==x && last_y==y) {
             return 0;
         }
 
@@ -100,7 +104,7 @@ public class Node implements Comparable<Node>{
     }
     // checking if it is possible to do step down and return the cost of the step
     public int step_down(int x, int y) {
-        if(this.lastStep.equals("up")) {
+        if(this.lastStep.equals("up") && last_x==x && last_y==y) {
             return 0;
         }
         if (this.matrix.get(x).get(y).equals("X") || this.matrix.get(x).get(y).equals("_")) {
@@ -119,7 +123,7 @@ public class Node implements Comparable<Node>{
     }
     // checking if it is possible to do step right and return the cost of the step
     public int step_right(int x, int y) {
-        if(this.lastStep.equals("left")) {
+        if(this.lastStep.equals("left") && last_x==x && last_y==y) {
             return 0;
         }
         if (this.matrix.get(x).get(y).equals("X") || this.matrix.get(x).get(y).equals("_")) {
@@ -138,7 +142,7 @@ public class Node implements Comparable<Node>{
     }
     // checking if it is possible to do step left and return the cost of the step
     public int step_left(int x, int y) {
-        if(this.lastStep.equals("right")) {
+        if(this.lastStep.equals("right") && last_x==x && last_y==y) {
             return 0;
         }
         if (this.matrix.get(x).get(y).equals("X") || this.matrix.get(x).get(y).equals("_")) {
