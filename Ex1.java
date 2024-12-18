@@ -224,7 +224,7 @@ public class Ex1 {
                         num++; // count creating node
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "up");
+                            newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
@@ -253,7 +253,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
 
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "down");
+                            newNode.add_move(x, step, "down", ((i+1)%3), j);
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
@@ -282,7 +282,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
 
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j +1)%3+1)+")";
-                            newNode.add_move(x, step, "right");
+                            newNode.add_move(x, step, "right", i, ((j +1)%3));
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
@@ -311,7 +311,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
 
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                            newNode.add_move(x, step, "left");
+                            newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
@@ -384,7 +384,7 @@ public class Ex1 {
                         num++;
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                            g.add_move(x, step, "up");
+                            g.add_move(x, step, "up", ((i+3-1)%3), j);
                             Node result = Limited_DFS(g, goal, limit-1, hash);
 
                             if (result.get_isCutoff()) {
@@ -413,7 +413,7 @@ public class Ex1 {
                         num++;
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                            g.add_move(x, step, "down");
+                            g.add_move(x, step, "down", ((i+1)%3), j);
                             Node result = Limited_DFS(g, goal, limit-1, hash);
 
                             if (result.get_isCutoff()) {
@@ -442,7 +442,7 @@ public class Ex1 {
                         num++;
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                            g.add_move(x, step, "right");
+                            g.add_move(x, step, "right", i, ((j +1)%3));
                             Node result = Limited_DFS(g, goal, limit-1, hash);
 
                             if (result.get_isCutoff()) {
@@ -471,7 +471,7 @@ public class Ex1 {
                         num++;
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                            g.add_move(x, step, "left");
+                            g.add_move(x, step, "left", i, ((j +3-1)%3));
                             Node result = Limited_DFS(g, goal, limit-1, hash);
 
                             if (result.get_isCutoff()) {
@@ -542,8 +542,11 @@ public class Ex1 {
                                         Node g = new Node(n, temp);
                                         num++;
                                         g.set_h(h(g,goal));
+                                        System.out.println("---------------");
+                                        printMatrix(temp);
+                                        System.out.println("---------------");
                                         String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                                        g.add_move(x, step, "up");
+                                        g.add_move(x, step, "up", ((i+3-1)%3), j);
 
                                         int fg = g.get_cost()+h(g,goal);
 
@@ -587,6 +590,7 @@ public class Ex1 {
                                         }
                                         stack.push(g);
                                         hash.put(g.getMatrix(), g);
+                                        System.out.println("added");
                                     }
                                 }
 
@@ -606,8 +610,11 @@ public class Ex1 {
                                         Node g = new Node(n, temp);
                                         num++;
                                         g.set_h(h(g,goal));
+                                        System.out.println("---------------");
+                                        printMatrix(temp);
+                                        System.out.println("---------------");
                                         String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                                        g.add_move(x, step, "down");
+                                        g.add_move(x, step, "down", ((i+1)%3), j);
 
                                         int fg = g.get_cost()+h(g,goal);
 
@@ -651,6 +658,7 @@ public class Ex1 {
                                         }
                                         stack.push(g);
                                         hash.put(g.getMatrix(), g);
+                                        System.out.println("added");
                                     }
                                 }
 
@@ -671,8 +679,11 @@ public class Ex1 {
                                         Node g = new Node(n, temp);
                                         num++;
                                         g.set_h(h(g,goal));
+                                        System.out.println("---------------");
+                                        printMatrix(temp);
+                                        System.out.println("---------------");
                                         String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                                        g.add_move(x, step, "right");
+                                        g.add_move(x, step, "right", i, ((j +1)%3));
 
                                         int fg = g.get_cost()+h(g,goal);
 
@@ -716,6 +727,7 @@ public class Ex1 {
                                         }
                                         stack.push(g);
                                         hash.put(g.getMatrix(), g);
+                                        System.out.println("added");
                                     }
                                 }
 
@@ -736,8 +748,11 @@ public class Ex1 {
                                         Node g = new Node(n, temp);
                                         num++;
                                         g.set_h(h(g,goal));
+                                        System.out.println("---------------");
+                                        printMatrix(temp);
+                                        System.out.println("---------------");
                                         String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                                        g.add_move(x, step, "left");
+                                        g.add_move(x, step, "left", i, ((j +3-1)%3));
 
                                         int fg = g.get_cost()+h(g,goal);
 
@@ -781,14 +796,16 @@ public class Ex1 {
                                         }
                                         stack.push(g);
                                         hash.put(g.getMatrix(), g);
+                                        System.out.println("added");
                                     }
                                 }
                             }
                         }
                     }
                 }
+                t = minF;
             }
-            t = minF;
+
         }
         System.out.println("790");
         return start;
@@ -837,7 +854,7 @@ public class Ex1 {
                             num++; // count creating node
                             if(!hash.containsKey(temp)) {
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                                newNode.add_move(x, step, "up");
+                                newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                                 System.out.println();
                                 printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
@@ -861,7 +878,7 @@ public class Ex1 {
                             num++; // count creating node
                             if(!hash.containsKey(temp)) {
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                                newNode.add_move(x, step, "down");
+                                newNode.add_move(x, step, "down", ((i+1)%3), j);
                                 System.out.println();
                                 printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
@@ -885,7 +902,7 @@ public class Ex1 {
                             num++; // count creating node
                             if(!hash.containsKey(temp)) {
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                                newNode.add_move(x, step, "right");
+                                newNode.add_move(x, step, "right", i, ((j +1)%3));
                                 System.out.println();
                                 printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
@@ -909,7 +926,7 @@ public class Ex1 {
                             num++; // count creating node
                             if(!hash.containsKey(temp)) {
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                                newNode.add_move(x, step, "left");
+                                newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                                 System.out.println();
                                 printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
@@ -1012,7 +1029,7 @@ public class Ex1 {
                         num++; // count creating node
                         if(newNode.is_equals(goal)){
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "up");
+                            newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                             System.out.println();
                             printMatrix(temp);
                             return newNode;
@@ -1027,7 +1044,7 @@ public class Ex1 {
                         }
                         else{
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "up");
+                            newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                             System.out.println();
                             printMatrix(temp);
                             openList.put(temp, newNode);
@@ -1051,7 +1068,7 @@ public class Ex1 {
                         num++; // count creating node
                         if(newNode.is_equals(goal)){
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "down");
+                            newNode.add_move(x, step, "down", ((i+1)%3), j);
                             System.out.println();
                             printMatrix(temp);
                             return newNode;
@@ -1066,7 +1083,7 @@ public class Ex1 {
                         }
                         else{
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "down");
+                            newNode.add_move(x, step, "down", ((i+1)%3), j);
                             System.out.println();
                             printMatrix(temp);
                             openList.put(temp, newNode);
@@ -1090,7 +1107,7 @@ public class Ex1 {
                         num++; // count creating node
                         if(newNode.is_equals(goal)){
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                            newNode.add_move(x, step, "right");
+                            newNode.add_move(x, step, "right", i, ((j +1)%3));
                             System.out.println();
                             printMatrix(temp);
                             return newNode;
@@ -1105,7 +1122,7 @@ public class Ex1 {
                         }
                         else{
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                            newNode.add_move(x, step, "right");
+                            newNode.add_move(x, step, "right", i, ((j +1)%3));
                             System.out.println();
                             printMatrix(temp);
                             openList.put(temp, newNode);
@@ -1129,7 +1146,7 @@ public class Ex1 {
                         num++; // count creating node
                         if(newNode.is_equals(goal)){
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                            newNode.add_move(x, step, "left");
+                            newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                             System.out.println();
                             printMatrix(temp);
                             return newNode;
@@ -1138,7 +1155,7 @@ public class Ex1 {
                         int f = newNode.get_f();
                         if(!openList.containsKey(temp) && !(closeList.containsKey(temp) && closeList.get(temp).get_f() < f)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                            newNode.add_move(x, step, "left");
+                            newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                             System.out.println();
                             printMatrix(temp);
                             openList.put(temp, newNode);
@@ -1235,4 +1252,3 @@ public class Ex1 {
 
 
 }
-
