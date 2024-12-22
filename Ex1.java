@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +10,7 @@ public class Ex1 {
     public static int num = 0; // this is a global because the recursive functions
 
     public static void main(String[] args) {
-        String filePath = "example2.txt"; // Update with your file's path
+        String filePath = "example3.txt"; // Update with your file's path
 
         try {
             // Read all lines from the file
@@ -39,116 +40,115 @@ public class Ex1 {
 
             Node start = new Node(startMatrix);
 
-            // add some printing of my own
-            int hieu = h(start, goalMatrix);
-            System.out.println("heuristic: "+hieu);
-            System.out.println();
-
-            // Print parsed data to verify
-            System.out.println("Algorithm: " + algorithm);
-            System.out.println("With Time: " + withTime);
-            System.out.println("With Open: " + withOpen);
-
-            System.out.println("Start Matrix:");
-            printMatrix(startMatrix);
-
-            System.out.println("Goal Matrix:");
-            printMatrix(goalMatrix);
+            String fileOutPath = "output.txt"; // Specify the file path
 
             switch (algorithm) {
                 case "BFS" -> {
-                    System.out.println();
                     long startTime = System.nanoTime();
-
-                    Node n = BFS(start, goalMatrix);
+                    Node n = BFS(start, goalMatrix, withOpen);
 
                     long endTime = System.nanoTime();
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
 
-                    String road = n.get_moves();
                     int cost = n.get_cost();
-                    System.out.println(road);
-                    System.out.println("Num: " + num);
-                    System.out.println("Cost: " + cost);
-                    if (withTime) {
-                        String formattedTime = String.format("%.3f", elapsedTime);
-                        System.out.println(formattedTime + " seconds");
+
+                    try (FileWriter writer = new FileWriter(fileOutPath)) {
+                        // Write content to the file
+                        writer.write(n.get_moves());
+                        writer.write("\nNum: " + num);
+                        writer.write("\nCost: " + cost);
+                        if (withTime) {
+                            String formattedTime = String.format("%.3f", elapsedTime);
+                            writer.write("\n" + formattedTime + " seconds");
+                        }
+
+                    } catch (IOException e) {
+                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
                     }
-                    System.out.println("the final matrix is:");
-                    printMatrix(n.getMatrix());
                 }
                 case "DFID" -> {
                     System.out.println();
                     long startTime = System.nanoTime();
 
-                    Node n = DFID(start, goalMatrix);
+                    Node n = DFID(start, goalMatrix, withOpen);
 
                     long endTime = System.nanoTime();
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
 
-                    String road = n.get_moves();
                     int cost = n.get_cost();
-                    System.out.println(road);
-                    System.out.println("Num: " + num);
-                    System.out.println("Cost: " + cost);
-                    if (withTime) {
-                        String formattedTime = String.format("%.3f", elapsedTime);
-                        System.out.println(formattedTime + " seconds");
-                    }
-                    System.out.println("the final matrix is:");
-                    printMatrix(n.getMatrix());
 
+                    try (FileWriter writer = new FileWriter(fileOutPath)) {
+                        // Write content to the file
+                        writer.write(n.get_moves());
+                        writer.write("\nNum: " + num);
+                        writer.write("\nCost: " + cost);
+                        if (withTime) {
+                            String formattedTime = String.format("%.3f", elapsedTime);
+                            writer.write("\n" + formattedTime + " seconds");
+                        }
+
+                    } catch (IOException e) {
+                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                    }
 
                 }
                 case "A*" -> {
                     System.out.println();
                     long startTime = System.nanoTime();
 
-                    Node n = AStar(start, goalMatrix);
+                    Node n = AStar(start, goalMatrix, withOpen);
 
                     long endTime = System.nanoTime();
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
 
-                    String road = n.get_moves();
                     int cost = n.get_cost();
-                    System.out.println(road);
-                    System.out.println("Num: " + num);
-                    System.out.println("Cost: " + cost);
-                    if (withTime) {
-                        String formattedTime = String.format("%.3f", elapsedTime);
-                        System.out.println(formattedTime + " seconds");
+
+                    try (FileWriter writer = new FileWriter(fileOutPath)) {
+                        // Write content to the file
+                        writer.write(n.get_moves());
+                        writer.write("\nNum: " + num);
+                        writer.write("\nCost: " + cost);
+                        if (withTime) {
+                            String formattedTime = String.format("%.3f", elapsedTime);
+                            writer.write("\n" + formattedTime + " seconds");
+                        }
+
+                    } catch (IOException e) {
+                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
                     }
-                    System.out.println("the final matrix is:");
-                    printMatrix(n.getMatrix());
                 }
                 case "IDA*" -> {
                     System.out.println();
                     long startTime = System.nanoTime();
 
-                    Node n = IDA(start, goalMatrix);
+                    Node n = IDA(start, goalMatrix, withOpen);
 
                     long endTime = System.nanoTime();
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
 
-                    String road = n.get_moves();
                     int cost = n.get_cost();
-                    System.out.println(road);
-                    System.out.println("Num: " + num);
-                    System.out.println("Cost: " + cost);
-                    if (withTime) {
-                        String formattedTime = String.format("%.3f", elapsedTime);
-                        System.out.println(formattedTime + " seconds");
+
+                    try (FileWriter writer = new FileWriter(fileOutPath)) {
+                        // Write content to the file
+                        writer.write(n.get_moves());
+                        writer.write("\nNum: " + num);
+                        writer.write("\nCost: " + cost);
+                        if (withTime) {
+                            String formattedTime = String.format("%.3f", elapsedTime);
+                            writer.write("\n" + formattedTime + " seconds");
+                        }
+
+                    } catch (IOException e) {
+                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
                     }
-                    System.out.println("the final matrix is:");
-                    printMatrix(n.getMatrix());
 
                 }
                 case "DFBnB" -> {
@@ -156,24 +156,28 @@ public class Ex1 {
                     System.out.println();
                     long startTime = System.nanoTime();
 
-                    Node n = DFBnB(start, goalMatrix);
+                    Node n = DFBnB(start, goalMatrix, withOpen);
 
                     long endTime = System.nanoTime();
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
 
-                    String road = n.get_moves();
                     int cost = n.get_cost();
-                    System.out.println(road);
-                    System.out.println("Num: " + num);
-                    System.out.println("Cost: " + cost);
-                    if (withTime) {
-                        String formattedTime = String.format("%.3f", elapsedTime);
-                        System.out.println(formattedTime + " seconds");
+
+                    try (FileWriter writer = new FileWriter(fileOutPath)) {
+                        // Write content to the file
+                        writer.write(n.get_moves());
+                        writer.write("\nNum: " + num);
+                        writer.write("\nCost: " + cost);
+                        if (withTime) {
+                            String formattedTime = String.format("%.3f", elapsedTime);
+                            writer.write("\n" + formattedTime + " seconds");
+                        }
+
+                    } catch (IOException e) {
+                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
                     }
-                    System.out.println("the final matrix is:");
-                    printMatrix(n.getMatrix());
                 }
             }
 
@@ -195,14 +199,25 @@ public class Ex1 {
 
 
     // BFS algorithm
-    public static Node BFS(Node n, List<List<String>> goal) {
+    public static Node BFS(Node n, List<List<String>> goal, boolean open) {
 
         Queue<Node> L = new LinkedList<>();
+        Hashtable<List<List<String>>, Node> Lhash = new Hashtable<>();
         Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
         L.add(n);
+        Lhash.put(n.getMatrix(),n);
 
         while(!L.isEmpty()) {
+
+            if(open){
+                System.out.println("Printing open list:");
+                for (Node node : L) {
+                    System.out.println();
+                    printMatrix(node.getMatrix());
+                }
+            }
             Node currNode = L.poll();
+            Lhash.remove(currNode.getMatrix());
             hash.put(currNode.getMatrix(), currNode);
             for(int i=0; i<3; i++) {
                 for(int j=0; j<3; j++) {
@@ -220,9 +235,10 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get((i+3-1)%3).set(j, ball) ;
-                        Node newNode = new Node(currNode, temp);
-                        num++; // count creating node
-                        if(!hash.containsKey(temp)) {
+
+                        if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
+                            Node newNode = new Node(currNode, temp);
+                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
                             newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                             if (newNode.is_equals(goal)) {
@@ -230,9 +246,10 @@ public class Ex1 {
                                 return newNode;
                             }
                             L.add(newNode);
+                            Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-                            System.out.println();
-                            printMatrix(temp);
+//                            System.out.println();
+//                            printMatrix(temp);
                         }
                     }
 
@@ -248,10 +265,10 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get((i+1)%3).set(j, ball);
-                        Node newNode = new Node(currNode, temp);
-                        num++; // count creating node
-                        if(!hash.containsKey(temp)) {
 
+                        if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
+                            Node newNode = new Node(currNode, temp);
+                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                             newNode.add_move(x, step, "down", ((i+1)%3), j);
                             if (newNode.is_equals(goal)) {
@@ -259,9 +276,10 @@ public class Ex1 {
                                 return newNode;
                             }
                             L.add(newNode);
+                            Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-                            System.out.println();
-                            printMatrix(temp);
+//                            System.out.println();
+//                            printMatrix(temp);
                         }
                     }
 
@@ -277,10 +295,10 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get(i).set(((j +1)%3), ball);
-                        Node newNode = new Node(currNode, temp);
-                        num++; // count creating node
-                        if(!hash.containsKey(temp)) {
 
+                        if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
+                            Node newNode = new Node(currNode, temp);
+                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j +1)%3+1)+")";
                             newNode.add_move(x, step, "right", i, ((j +1)%3));
                             if (newNode.is_equals(goal)) {
@@ -288,9 +306,10 @@ public class Ex1 {
                                 return newNode;
                             }
                             L.add(newNode);
+                            Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-                            System.out.println();
-                            printMatrix(temp);
+//                            System.out.println();
+//                            printMatrix(temp);
                         }
                     }
 
@@ -306,10 +325,10 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get(i).set(((j +3-1)%3), ball) ;
-                        Node newNode = new Node(currNode, temp);
-                        num++; // count creating node
-                        if(!hash.containsKey(temp)) {
 
+                        if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
+                            Node newNode = new Node(currNode, temp);
+                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                             newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                             if (newNode.is_equals(goal)) {
@@ -317,28 +336,29 @@ public class Ex1 {
                                 return newNode;
                             }
                             L.add(newNode);
+                            Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-                            System.out.println();
-                            printMatrix(temp);
+//                            System.out.println();
+//                            printMatrix(temp);
                         }
                     }
                 }
             }
         }
-        System.out.println("return here");
+        //System.out.println("return here");
         return n;
     }
 
 
     // DFID algorithm
-    public static Node DFID(Node n, List<List<String>> goal) {
+    public static Node DFID(Node n, List<List<String>> goal, boolean open) {
 
         int depth = 1;
 
         while(depth > 0) {
             Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
             depth++;
-            Node result = Limited_DFS(n, goal, depth, hash);
+            Node result = Limited_DFS(n, goal, depth, hash, open);
             if(result.is_equals(goal)) {
                 return  result; // I need to make sure this is  ok !!!!!!!!!!!!!!
             }
@@ -348,7 +368,7 @@ public class Ex1 {
 
 
     // the second function of DFID algorithm
-    public static Node Limited_DFS(Node n, List<List<String>> goal, int limit, Hashtable<List<List<String>>, Node> hash) {
+    public static Node Limited_DFS(Node n, List<List<String>> goal, int limit, Hashtable<List<List<String>>, Node> hash, boolean open) {
 
         if(n.is_equals(goal)) {
             n.found_goal(num);
@@ -385,7 +405,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
                             g.add_move(x, step, "up", ((i+3-1)%3), j);
-                            Node result = Limited_DFS(g, goal, limit-1, hash);
+                            Node result = Limited_DFS(g, goal, limit-1, hash, open);
 
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
@@ -414,7 +434,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                             g.add_move(x, step, "down", ((i+1)%3), j);
-                            Node result = Limited_DFS(g, goal, limit-1, hash);
+                            Node result = Limited_DFS(g, goal, limit-1, hash, open);
 
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
@@ -443,7 +463,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
                             g.add_move(x, step, "right", i, ((j +1)%3));
-                            Node result = Limited_DFS(g, goal, limit-1, hash);
+                            Node result = Limited_DFS(g, goal, limit-1, hash, open);
 
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
@@ -472,7 +492,7 @@ public class Ex1 {
                         if(!hash.containsKey(temp)) {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                             g.add_move(x, step, "left", i, ((j +3-1)%3));
-                            Node result = Limited_DFS(g, goal, limit-1, hash);
+                            Node result = Limited_DFS(g, goal, limit-1, hash, open);
 
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
@@ -485,6 +505,13 @@ public class Ex1 {
                     }
                 }
             }
+            if(open){
+                System.out.println("Printing open list:");
+                for (List<List<String>> key : hash.keySet()) {
+                    printMatrix(key);
+                    System.out.println();
+                }
+            }
             hash.remove(n.getMatrix(), n);
             if(isCutoff) {
                 return n;
@@ -495,7 +522,7 @@ public class Ex1 {
 
 
     // IDA* algorithm
-    public static Node IDA(Node start, List<List<String>> goal) {
+    public static Node IDA(Node start, List<List<String>> goal, boolean open) {
 
         Stack<Node> stack = new Stack<>();
         Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
@@ -561,29 +588,16 @@ public class Ex1 {
 
                                         if(hash.containsKey(temp) && !hash.get(temp).get_out()) {
 
-                                            if(fg >= hash.get(temp).get_f()) {
-                                                continue;
+                                            if(fg < hash.get(temp).get_f()) {
+                                                stack.remove(hash.get(temp));
+                                                hash.remove(temp);
                                             }
                                             else {
-                                                hash.remove(temp);
-
-                                                // removing the specific node
-                                                Stack<Node> tempStack = new Stack<>();
-                                                while(!stack.isEmpty()) {
-                                                    Node tempNode = stack.pop();
-                                                    if (tempNode.getMatrix().equals(temp)) {
-                                                        break;
-                                                    }
-                                                    tempStack.add(tempNode);
-                                                }
-                                                while(!tempStack.isEmpty()) {
-                                                    Node tempNode = tempStack.pop();
-                                                    stack.add(tempNode);
-                                                }
+                                                continue;
                                             }
                                         }
 
-                                        if(g.getMatrix().equals(goal)) {
+                                        if(temp.equals(goal)) {
                                             g.found_goal(num);
                                             System.out.println("584");
                                             return g;
@@ -633,21 +647,8 @@ public class Ex1 {
                                                 continue;
                                             }
                                             else {
+                                                stack.remove(hash.get(temp));
                                                 hash.remove(temp);
-
-                                                // removing the specific node
-                                                Stack<Node> tempStack = new Stack<>();
-                                                while(!stack.isEmpty()) {
-                                                    Node tempNode = stack.pop();
-                                                    if (tempNode.getMatrix().equals(temp)) {
-                                                        break;
-                                                    }
-                                                    tempStack.add(tempNode);
-                                                }
-                                                while(!tempStack.isEmpty()) {
-                                                    Node tempNode = tempStack.pop();
-                                                    stack.add(tempNode);
-                                                }
                                             }
                                         }
 
@@ -702,21 +703,8 @@ public class Ex1 {
                                                 continue;
                                             }
                                             else {
+                                                stack.remove(hash.get(temp));
                                                 hash.remove(temp);
-
-                                                // removing the specific node
-                                                Stack<Node> tempStack = new Stack<>();
-                                                while(!stack.isEmpty()) {
-                                                    Node tempNode = stack.pop();
-                                                    if (tempNode.getMatrix().equals(temp)) {
-                                                        break;
-                                                    }
-                                                    tempStack.add(tempNode);
-                                                }
-                                                while(!tempStack.isEmpty()) {
-                                                    Node tempNode = tempStack.pop();
-                                                    stack.add(tempNode);
-                                                }
                                             }
                                         }
 
@@ -771,21 +759,9 @@ public class Ex1 {
                                                 continue;
                                             }
                                             else {
+                                                stack.remove(hash.get(temp));
                                                 hash.remove(temp);
 
-                                                // removing the specific node
-                                                Stack<Node> tempStack = new Stack<>();
-                                                while(!stack.isEmpty()) {
-                                                    Node tempNode = stack.pop();
-                                                    if (tempNode.getMatrix().equals(temp)) {
-                                                        break;
-                                                    }
-                                                    tempStack.add(tempNode);
-                                                }
-                                                while(!tempStack.isEmpty()) {
-                                                    Node tempNode = tempStack.pop();
-                                                    stack.add(tempNode);
-                                                }
                                             }
                                         }
 
@@ -806,6 +782,7 @@ public class Ex1 {
                 t = minF;
             }
 
+
         }
         System.out.println("790");
         return start;
@@ -813,7 +790,7 @@ public class Ex1 {
 
 
     // DFBnB algorithm
-    public static Node DFBnB(Node start, List<List<String>> goal) {
+    public static Node DFBnB(Node start, List<List<String>> goal, boolean open) {
 
         Stack<Node> stack = new Stack<>();
         Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
@@ -825,6 +802,14 @@ public class Ex1 {
         Node result = new Node();
 
         while(!stack.isEmpty()) {
+
+            if(open){
+                System.out.println("Printing open list:");
+                for (Node node : stack) {
+                    System.out.println();
+                    printMatrix(node.getMatrix());
+                }
+            }
             Node n = stack.pop();
             if(n.get_out()) {
                 hash.remove(n.getMatrix());
@@ -832,7 +817,7 @@ public class Ex1 {
             else {
                 n.mark_out();
                 stack.push(n);
-                List<Node> N = new ArrayList<>();
+                ArrayList<Node> N = new ArrayList<>();
 
                 for(int i=0; i<3; i++) {
                     for(int j=0; j<3; j++) {
@@ -850,9 +835,11 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get((i+3-1)%3).set(j, ball) ;
-                            Node newNode = new Node(n, temp);
-                            num++; // count creating node
+//                            Node newNode = new Node(n, temp);
+//                            num++; // count creating node
                             if(!hash.containsKey(temp)) {
+                                Node newNode = new Node(n, temp);
+                                num++; // count creating node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
                                 newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                                 System.out.println();
@@ -874,9 +861,11 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get((i+1)%3).set(j, ball) ;
-                            Node newNode = new Node(n, temp);
-                            num++; // count creating node
+//                            Node newNode = new Node(n, temp);
+//                            num++; // count creating node
                             if(!hash.containsKey(temp)) {
+                                Node newNode = new Node(n, temp);
+                                num++; // count creating node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                                 newNode.add_move(x, step, "down", ((i+1)%3), j);
                                 System.out.println();
@@ -898,9 +887,11 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get(i).set((j+1)%3, ball) ;
-                            Node newNode = new Node(n, temp);
-                            num++; // count creating node
+//                            Node newNode = new Node(n, temp);
+//                            num++; // count creating node
                             if(!hash.containsKey(temp)) {
+                                Node newNode = new Node(n, temp);
+                                num++; // count creating node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
                                 newNode.add_move(x, step, "right", i, ((j +1)%3));
                                 System.out.println();
@@ -922,9 +913,11 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get(i).set((j+3-1)%3, ball) ;
-                            Node newNode = new Node(n, temp);
-                            num++; // count creating node
+//                            Node newNode = new Node(n, temp);
+//                            num++; // count creating node
                             if(!hash.containsKey(temp)) {
+                                Node newNode = new Node(n, temp);
+                                num++; // count creating node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                                 newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                                 System.out.println();
@@ -936,50 +929,60 @@ public class Ex1 {
                     }
                 }
 
-                N.sort(Comparator.comparingInt(Node::get_f));
+                Collections.sort(N);
+                ArrayList<Node> temp = new ArrayList<>();
 
                 Iterator<Node> iter = N.iterator();
                 while(iter.hasNext()) {
                     Node g = iter.next();
                     int f = h(g, goal) + g.get_cost();
                     if(f >= t) {
-                        // remove g and all the nodes after it from N
-                        while (iter.hasNext()) {
-                            iter.next();
-                            iter.remove();
-                        }
+//                        // remove g and all the nodes after it from N
+//                        while (iter.hasNext()) {
+//                            iter.next();
+//                            iter.remove();
+//                        }
                         break;
                     }
                     else if(hash.containsKey(g.getMatrix()) && g.get_out()) {
-                        iter.remove(); // where the iter go ??? should I do i-1 ??????????????
+//                        iter.remove(); // where the iter go ??? should I do i-1 ??????????????
                     }
                     else if(hash.containsKey(g.getMatrix()) && !g.get_out()) {
                         int fg_tag = h(hash.get(g.getMatrix()), goal) + hash.get(g.getMatrix()).get_cost();
-                        if(fg_tag <= f) {
-                            iter.remove(); // where the iter go ??? should I do i-1 ??????????????
-                        }
-                        else {
+//                        if(fg_tag <= f) {
+//                            iter.remove(); // where the iter go ??? should I do i-1 ??????????????
+//                        }
+//                        else {
+//                            stack.remove(hash.get(g.getMatrix())); // is it will be ok ???????
+//                            hash.remove(g.getMatrix());
+//                        }
+                        if(fg_tag > f){
                             stack.remove(hash.get(g.getMatrix())); // is it will be ok ???????
                             hash.remove(g.getMatrix());
+                            temp.add(g);
                         }
                     }
                     else if(g.is_equals(goal)) { // if we reached here, f(g) < t
                         t = f;
                         result = g;
                         // remove g and all the nodes after it from N
-                        while (iter.hasNext()) {
-                            iter.next();
-                            iter.remove();
-                        }
+//                        while (iter.hasNext()) {
+//                            iter.next();
+//                            iter.remove();
+//                        }
                         break;
+                    }
+                    else{
+                        temp.add(g);
                     }
                 }
                 // insert N in a reverse order to stack and hash
-                ListIterator<Node> reverseIter = N.listIterator(N.size());
+                ListIterator<Node> reverseIter = temp.listIterator(temp.size());
                 while (reverseIter.hasPrevious()) {
                     Node g = reverseIter.previous();
                     stack.push(g);
                     hash.put(g.getMatrix(), g);
+
                 }
             }
         }
@@ -987,7 +990,7 @@ public class Ex1 {
     }
 
 
-    public static Node AStar(Node start, List<List<String>> goal) {
+    public static Node AStar(Node start, List<List<String>> goal, boolean open) {
 
         Hashtable<List<List<String>>, Node> openList = new Hashtable<>();
         PriorityQueue<Node> openQueue = new PriorityQueue<>();
@@ -999,6 +1002,14 @@ public class Ex1 {
         openQueue.add(start);
 
         while(!openQueue.isEmpty()){
+
+            if(open){
+                System.out.println("Printing open list:");
+                for (Node node : openQueue) {
+                    System.out.println();
+                    printMatrix(node.getMatrix());
+                }
+            }
 
             Node current = openQueue.poll();
             openList.remove(current.getMatrix());
@@ -1012,154 +1023,170 @@ public class Ex1 {
             for(int i=0; i<3; i++){
                 for(int j=0; j<3; j++){
                     int x;
+                    for(int a=0; a<4; a++) {
+                        if(a== 0) {
+                            // step up checking
+                            x = current.step_up(i, j);
+                            if (x != 0) {
+                                // if possible to do the step it will return the cost of the step and do whatever needed
+                                List<List<String>> curr = new ArrayList<>(current.getMatrix());
+                                List<List<String>> temp = new ArrayList<>();
+                                for (List<String> row : curr) {
+                                    temp.add(new ArrayList<>(row)); // Copy each inner list
+                                }
+                                String ball = temp.get(i).get(j);
+                                temp.get(i).set(j, "_");
+                                temp.get((i + 3 - 1) % 3).set(j, ball);
+                                Node newNode = new Node(current, temp);
+                                //num++; // count creating node
+                                if (newNode.is_equals(goal)) {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 3 - 1) % 3 + 1) + "," + (j + 1) + ")";
+                                    newNode.add_move(x, step, "up", ((i + 3 - 1) % 3), j);
+                                    // System.out.println();
+                                    // printMatrix(temp);
+                                    return newNode;
+                                }
+                                newNode.set_h(h(newNode, goal));
+                                int f = newNode.get_f();
+                                if (openList.containsKey(temp)) {
+                                    continue;
+                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                    continue;
+                                } else {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 3 - 1) % 3 + 1) + "," + (j + 1) + ")";
+                                    newNode.add_move(x, step, "up", ((i + 3 - 1) % 3), j);
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    openList.put(temp, newNode);
+                                    openQueue.add(newNode);
+                                }
+                            }
+                        }
 
-                    // step up checking
-                    x = current.step_up(i, j);
-                    if(x!=0) {
-                        // if possible to do the step it will return the cost of the step and do whatever needed
-                        List<List<String>> curr = new ArrayList<>(current.getMatrix());
-                        List<List<String>> temp = new ArrayList<>();
-                        for (List<String> row : curr) {
-                            temp.add(new ArrayList<>(row)); // Copy each inner list
+                        if(a==1) {
+                            // step down checking
+                            x = current.step_down(i, j);
+                            if (x != 0) {
+                                // if possible to do the step it will return the cost of the step and do whatever needed
+                                List<List<String>> curr = new ArrayList<>(current.getMatrix());
+                                List<List<String>> temp = new ArrayList<>();
+                                for (List<String> row : curr) {
+                                    temp.add(new ArrayList<>(row)); // Copy each inner list
+                                }
+                                String ball = temp.get(i).get(j);
+                                temp.get(i).set(j, "_");
+                                temp.get((i + 1) % 3).set(j, ball);
+                                Node newNode = new Node(current, temp);
+                                //num++; // count creating node
+                                if (newNode.is_equals(goal)) {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 1) % 3 + 1) + "," + (j + 1) + ")";
+                                    newNode.add_move(x, step, "down", ((i + 1) % 3), j);
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    return newNode;
+                                }
+                                newNode.set_h(h(newNode, goal));
+                                int f = newNode.get_f();
+                                if (openList.containsKey(temp)) {
+                                    continue;
+                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                    continue;
+                                } else {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 1) % 3 + 1) + "," + (j + 1) + ")";
+                                    newNode.add_move(x, step, "down", ((i + 1) % 3), j);
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    openList.put(temp, newNode);
+                                    openQueue.add(newNode);
+                                }
+                            }
                         }
-                        String ball = temp.get(i).get(j);
-                        temp.get(i).set(j, "_");
-                        temp.get((i+3-1)%3).set(j, ball) ;
-                        Node newNode = new Node(current, temp);
-                        num++; // count creating node
-                        if(newNode.is_equals(goal)){
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "up", ((i+3-1)%3), j);
-                            System.out.println();
-                            printMatrix(temp);
-                            return newNode;
-                        }
-                        newNode.set_h(h(newNode, goal));
-                        int f = newNode.get_f();
-                        if(openList.containsKey(temp)) {
-                            continue;
-                        }
-                        else if(closeList.containsKey(temp) && closeList.get(temp).get_f() < f){
-                            continue;
-                        }
-                        else{
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "up", ((i+3-1)%3), j);
-                            System.out.println();
-                            printMatrix(temp);
-                            openList.put(temp, newNode);
-                            openQueue.add(newNode);
-                        }
-                    }
 
-                    // step down checking
-                    x = current.step_down(i, j);
-                    if(x!=0) {
-                        // if possible to do the step it will return the cost of the step and do whatever needed
-                        List<List<String>> curr = new ArrayList<>(current.getMatrix());
-                        List<List<String>> temp = new ArrayList<>();
-                        for (List<String> row : curr) {
-                            temp.add(new ArrayList<>(row)); // Copy each inner list
+                        if(a==2) {
+                            // step right checking
+                            x = current.step_right(i, j);
+                            if (x != 0) {
+                                // if possible to do the step it will return the cost of the step and do whatever needed
+                                List<List<String>> curr = new ArrayList<>(current.getMatrix());
+                                List<List<String>> temp = new ArrayList<>();
+                                for (List<String> row : curr) {
+                                    temp.add(new ArrayList<>(row)); // Copy each inner list
+                                }
+                                String ball = temp.get(i).get(j);
+                                temp.get(i).set(j, "_");
+                                temp.get(i).set(((j + 1) % 3), ball);
+                                Node newNode = new Node(current, temp);
+                                //num++; // count creating node
+                                if (newNode.is_equals(goal)) {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 1) % 3 + 1) + ")";
+                                    newNode.add_move(x, step, "right", i, ((j + 1) % 3));
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    return newNode;
+                                }
+                                newNode.set_h(h(newNode, goal));
+                                int f = newNode.get_f();
+                                if (openList.containsKey(temp)) {
+                                    continue;
+                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                    continue;
+                                } else {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 1) % 3 + 1) + ")";
+                                    newNode.add_move(x, step, "right", i, ((j + 1) % 3));
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    openList.put(temp, newNode);
+                                    openQueue.add(newNode);
+                                }
+                            }
                         }
-                        String ball = temp.get(i).get(j);
-                        temp.get(i).set(j, "_");
-                        temp.get((i+1)%3).set(j, ball) ;
-                        Node newNode = new Node(current, temp);
-                        num++; // count creating node
-                        if(newNode.is_equals(goal)){
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "down", ((i+1)%3), j);
-                            System.out.println();
-                            printMatrix(temp);
-                            return newNode;
-                        }
-                        newNode.set_h(h(newNode, goal));
-                        int f = newNode.get_f();
-                        if(openList.containsKey(temp)) {
-                            continue;
-                        }
-                        else if(closeList.containsKey(temp) && closeList.get(temp).get_f() < f){
-                            continue;
-                        }
-                        else{
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
-                            newNode.add_move(x, step, "down", ((i+1)%3), j);
-                            System.out.println();
-                            printMatrix(temp);
-                            openList.put(temp, newNode);
-                            openQueue.add(newNode);
-                        }
-                    }
 
-                    // step right checking
-                    x = current.step_right(i, j);
-                    if(x!=0) {
-                        // if possible to do the step it will return the cost of the step and do whatever needed
-                        List<List<String>> curr = new ArrayList<>(current.getMatrix());
-                        List<List<String>> temp = new ArrayList<>();
-                        for (List<String> row : curr) {
-                            temp.add(new ArrayList<>(row)); // Copy each inner list
-                        }
-                        String ball = temp.get(i).get(j);
-                        temp.get(i).set(j, "_");
-                        temp.get(i).set(((j+1)%3), ball) ;
-                        Node newNode = new Node(current, temp);
-                        num++; // count creating node
-                        if(newNode.is_equals(goal)){
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                            newNode.add_move(x, step, "right", i, ((j +1)%3));
-                            System.out.println();
-                            printMatrix(temp);
-                            return newNode;
-                        }
-                        newNode.set_h(h(newNode, goal));
-                        int f = newNode.get_f();
-                        if(openList.containsKey(temp)) {
-                            continue;
-                        }
-                        else if(closeList.containsKey(temp) && closeList.get(temp).get_f() < f){
-                            continue;
-                        }
-                        else{
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
-                            newNode.add_move(x, step, "right", i, ((j +1)%3));
-                            System.out.println();
-                            printMatrix(temp);
-                            openList.put(temp, newNode);
-                            openQueue.add(newNode);
-                        }
-                    }
+                        if(a==3) {
+                            // step left checking
+                            x = current.step_left(i, j);
+                            if (x != 0) {
+                                // if possible to do the step it will return the cost of the step and do whatever needed
+                                List<List<String>> curr = new ArrayList<>(current.getMatrix());
+                                List<List<String>> temp = new ArrayList<>();
+                                for (List<String> row : curr) {
+                                    temp.add(new ArrayList<>(row)); // Copy each inner list
+                                }
+                                String ball = temp.get(i).get(j);
+                                temp.get(i).set(j, "_");
+                                temp.get(i).set(((j + 3 - 1) % 3), ball);
+                                Node newNode = new Node(current, temp);
+                                //num++; // count creating node
+                                if (newNode.is_equals(goal)) {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 3 - 1) % 3 + 1) + ")";
+                                    newNode.add_move(x, step, "left", i, ((j + 3 - 1) % 3));
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    return newNode;
+                                }
+                                newNode.set_h(h(newNode, goal));
+                                int f = newNode.get_f();
+                                if (openList.containsKey(temp)) {
+                                    continue;
+                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                    continue;
+                                } else {
+                                    num++;
+                                    String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 3 - 1) % 3 + 1) + ")";
+                                    newNode.add_move(x, step, "left", i, ((j + 3 - 1) % 3));
+//                                    System.out.println();
+//                                    printMatrix(temp);
+                                    openList.put(temp, newNode);
+                                    openQueue.add(newNode);
+                                }
 
-                    // step left checking
-                    x = current.step_left(i, j);
-                    if(x!=0) {
-                        // if possible to do the step it will return the cost of the step and do whatever needed
-                        List<List<String>> curr = new ArrayList<>(current.getMatrix());
-                        List<List<String>> temp = new ArrayList<>();
-                        for (List<String> row : curr) {
-                            temp.add(new ArrayList<>(row)); // Copy each inner list
-                        }
-                        String ball = temp.get(i).get(j);
-                        temp.get(i).set(j, "_");
-                        temp.get(i).set(((j+3-1)%3), ball) ;
-                        Node newNode = new Node(current, temp);
-                        num++; // count creating node
-                        if(newNode.is_equals(goal)){
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                            newNode.add_move(x, step, "left", i, ((j +3-1)%3));
-                            System.out.println();
-                            printMatrix(temp);
-                            return newNode;
-                        }
-                        newNode.set_h(h(newNode, goal));
-                        int f = newNode.get_f();
-                        if(!openList.containsKey(temp) && !(closeList.containsKey(temp) && closeList.get(temp).get_f() < f)) {
-                            String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
-                            newNode.add_move(x, step, "left", i, ((j +3-1)%3));
-                            System.out.println();
-                            printMatrix(temp);
-                            openList.put(temp, newNode);
-                            openQueue.add(newNode);
+                            }
                         }
                     }
                 }

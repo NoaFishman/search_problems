@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Node implements Comparable<Node>{
 
+    public static int time = 0;
     private List<List<String>> matrix;
     private String moves;
     private int cost;
@@ -14,6 +15,7 @@ public class Node implements Comparable<Node>{
     private int heuristic;
     private int last_x;
     private int last_y;
+    private int time_created;
 
     public Node(List<List<String>> mat) {
         matrix = new ArrayList<>(mat);
@@ -25,6 +27,9 @@ public class Node implements Comparable<Node>{
         out = false;
         lastStep = "";
         heuristic = 0;
+        time++;
+        time_created = time;
+
     }
 
     public Node() {
@@ -37,6 +42,8 @@ public class Node implements Comparable<Node>{
         out = false;
         lastStep = "";
         heuristic = 0;
+        time++;
+        time_created = time;
     }
 
     public Node(List<List<String>> mat, String currMoves, int currCost) {
@@ -49,6 +56,8 @@ public class Node implements Comparable<Node>{
         out = false;
         lastStep = "";
         heuristic = 0;
+        time++;
+        time_created = time;
     }
 
     public Node(Node n, List<List<String>> mat) {
@@ -61,6 +70,8 @@ public class Node implements Comparable<Node>{
         out = false;
         lastStep = "";
         heuristic = 0;
+        time++;
+        time_created = time;
     }
 
     // return the node matrix
@@ -211,20 +222,25 @@ public class Node implements Comparable<Node>{
         this.out = true;
     }
 
-    // return the f value (f+h)
+    // return the f value (g+h)
     public int get_f() {
         return this.cost +this.heuristic;
     }
 
     @Override
     public int compareTo(Node other){
-        return Integer.compare(this.get_f(), other.get_f());
+        int ans = Integer.compare(this.get_f(), other.get_f());
+        if(ans == 0){
+            ans = Integer.compare(this.time_created, other.time_created);
+        }
+        return ans;
     }
 
     // set the heuristic value
     public void set_h(int h) {
         heuristic = h;
     }
+
 
 
 }
