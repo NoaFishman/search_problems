@@ -4,7 +4,7 @@ import java.util.List;
 public class Node implements Comparable<Node>{
 
     public static int time = 0;
-    private List<List<String>> matrix;
+    private final List<List<String>> matrix;
     private String moves;
     private int cost;
     private int num;
@@ -15,8 +15,9 @@ public class Node implements Comparable<Node>{
     private int heuristic;
     private int last_x;
     private int last_y;
-    private int time_created;
+    private final int time_created;
 
+    // constructor
     public Node(List<List<String>> mat) {
         matrix = new ArrayList<>(mat);
         moves = "";
@@ -32,6 +33,7 @@ public class Node implements Comparable<Node>{
 
     }
 
+    // constructor
     public Node() {
         matrix = new ArrayList<>();
         moves = "";
@@ -46,20 +48,7 @@ public class Node implements Comparable<Node>{
         time_created = time;
     }
 
-    public Node(List<List<String>> mat, String currMoves, int currCost) {
-        matrix = new ArrayList<>(mat);
-        moves = currMoves;
-        cost = currCost;
-        num =0;
-        isGoal = false;
-        isCutoff = false;
-        out = false;
-        lastStep = "";
-        heuristic = 0;
-        time++;
-        time_created = time;
-    }
-
+    // constructor
     public Node(Node n, List<List<String>> mat) {
         matrix = new ArrayList<>(mat);
         moves = n.moves;
@@ -83,6 +72,7 @@ public class Node implements Comparable<Node>{
     public void add_move(int price, String step, String where, int x, int y) {
         this.lastStep = where;
         this.cost = cost+price;
+        // save the location and name of the step, so we won't do the oposite
         last_x = x;
         last_y = y;
         if(moves.length()<2) {
@@ -176,7 +166,7 @@ public class Node implements Comparable<Node>{
         return this.matrix.equals(other);
     }
 
-    // when the goal was found so we insert the value of num and change the isGoal to be true
+    // when the goal was found, so we insert the value of num and change the isGoal to be true
     public void found_goal(int n) {
         num = n;
         isGoal = true;
@@ -190,16 +180,6 @@ public class Node implements Comparable<Node>{
     // return the cost
     public int get_cost() {
         return this.cost;
-    }
-
-    // return the num value in this node
-    public int get_num() {
-        return this.num;
-    }
-
-    // return the isGoal value
-    public boolean get_isGoal() {
-        return this.isGoal;
     }
 
     // return the value of isCutoff
@@ -229,7 +209,9 @@ public class Node implements Comparable<Node>{
 
     @Override
     public int compareTo(Node other){
+        // compare by f value
         int ans = Integer.compare(this.get_f(), other.get_f());
+        // if the f values are the same so compare by the time that was created
         if(ans == 0){
             ans = Integer.compare(this.time_created, other.time_created);
         }
@@ -240,7 +222,5 @@ public class Node implements Comparable<Node>{
     public void set_h(int h) {
         heuristic = h;
     }
-
-
 
 }

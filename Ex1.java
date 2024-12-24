@@ -10,7 +10,7 @@ public class Ex1 {
     public static int num = 0; // this is a global because the recursive functions
 
     public static void main(String[] args) {
-        String filePath = "example4.txt"; // Update with your file's path
+        String filePath = "input.txt"; // Update with your file's path
 
         try {
             // Read all lines from the file
@@ -51,25 +51,43 @@ public class Ex1 {
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
-
                     int cost = n.get_cost();
 
-                    try (FileWriter writer = new FileWriter(fileOutPath)) {
-                        // Write content to the file
-                        writer.write(n.get_moves());
-                        writer.write("\nNum: " + num);
-                        writer.write("\nCost: " + cost);
-                        if (withTime) {
-                            String formattedTime = String.format("%.3f", elapsedTime);
-                            writer.write("\n" + formattedTime + " seconds");
-                        }
+                    // check if there is solution or not
+                    if(cost != 0){
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write(n.get_moves());
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: " + cost);
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
 
-                    } catch (IOException e) {
-                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
                     }
+                    else{
+                        // there is no solution
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write("no path");
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: inf");
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
+
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
+                    }
+
                 }
                 case "DFID" -> {
-                    System.out.println();
                     long startTime = System.nanoTime();
 
                     Node n = DFID(start, goalMatrix, withOpen);
@@ -78,27 +96,43 @@ public class Ex1 {
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
-
                     int cost = n.get_cost();
 
-                    try (FileWriter writer = new FileWriter(fileOutPath)) {
-                        // Write content to the file
-                        writer.write(n.get_moves());
-                        writer.write("\nNum: " + num);
-                        writer.write("\nCost: " + cost);
-                        if (withTime) {
-                            String formattedTime = String.format("%.3f", elapsedTime);
-                            writer.write("\n" + formattedTime + " seconds");
-                        }
+                    // check if there is solution or not
+                    if(cost != 0){
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write(n.get_moves());
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: " + cost);
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
 
-                    } catch (IOException e) {
-                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
+                    }
+                    // there is no solution
+                    else{
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write("no path");
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: inf");
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
+
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
                     }
 
                 }
                 case "A*" -> {
-                    System.out.println("A*");
-                    System.out.println(h(start, goalMatrix));
                     long startTime = System.nanoTime();
 
                     Node n = AStar(start, goalMatrix, withOpen);
@@ -107,25 +141,42 @@ public class Ex1 {
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
-
                     int cost = n.get_cost();
 
-                    try (FileWriter writer = new FileWriter(fileOutPath)) {
-                        // Write content to the file
-                        writer.write(n.get_moves());
-                        writer.write("\nNum: " + num);
-                        writer.write("\nCost: " + cost);
-                        if (withTime) {
-                            String formattedTime = String.format("%.3f", elapsedTime);
-                            writer.write("\n" + formattedTime + " seconds");
-                        }
+                    // check if there is solution or not
+                    if(cost != 0){
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write(n.get_moves());
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: " + cost);
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
 
-                    } catch (IOException e) {
-                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
+                    }
+                    // there is no solution
+                    else{
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write("no path");
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: inf");
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
+
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
                     }
                 }
                 case "IDA*" -> {
-                    System.out.println();
                     long startTime = System.nanoTime();
 
                     Node n = IDA(start, goalMatrix, withOpen);
@@ -134,31 +185,44 @@ public class Ex1 {
                     // Calculate the elapsed time in milliseconds
                     double elapsedTime = (endTime - startTime) / 1_000_000_000.0; // Convert nanoseconds to milliseconds
 
-
                     int cost = n.get_cost();
-                    System.out.println("IDA*");
-                    System.out.println(n.get_moves());
-                    System.out.println("\nNum: " + num);
-                    System.out.println("\nCost: " + cost);
 
-                    try (FileWriter writer = new FileWriter(fileOutPath)) {
-                        // Write content to the file
-                        writer.write(n.get_moves());
-                        writer.write("\nNum: " + num);
-                        writer.write("\nCost: " + cost);
-                        if (withTime) {
-                            String formattedTime = String.format("%.3f", elapsedTime);
-                            writer.write("\n" + formattedTime + " seconds");
+                    // check if there is solution or not
+                    if(cost != 0){
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write(n.get_moves());
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: " + cost);
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
+
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
                         }
+                    }
+                    // there is no solution
+                    else{
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write("no path");
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: inf");
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
 
-                    } catch (IOException e) {
-                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
                     }
 
                 }
                 case "DFBnB" -> {
 
-                    System.out.println();
                     long startTime = System.nanoTime();
 
                     Node n = DFBnB(start, goalMatrix, withOpen);
@@ -170,23 +234,41 @@ public class Ex1 {
 
                     int cost = n.get_cost();
 
-                    try (FileWriter writer = new FileWriter(fileOutPath)) {
-                        // Write content to the file
-                        writer.write(n.get_moves());
-                        writer.write("\nNum: " + num);
-                        writer.write("\nCost: " + cost);
-                        if (withTime) {
-                            String formattedTime = String.format("%.3f", elapsedTime);
-                            writer.write("\n" + formattedTime + " seconds");
-                        }
+                    // check if there is solution or not
+                    if(cost != 0){
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write(n.get_moves());
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: " + cost);
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
 
-                    } catch (IOException e) {
-                        System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
+                    }
+                    // there is no solution
+                    else{
+                        try (FileWriter writer = new FileWriter(fileOutPath)) {
+                            // Write content to the file
+                            writer.write("no path");
+                            writer.write("\nNum: " + num);
+                            writer.write("\nCost: inf");
+                            if (withTime) {
+                                String formattedTime = String.format("%.3f", elapsedTime);
+                                writer.write("\n" + formattedTime + " seconds");
+                            }
+
+                        } catch (IOException e) {
+                            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                        }
                     }
                 }
             }
-
-
+        // errors with the file
         } catch (IOException e) {
             System.err.println("Error reading the file: " + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
@@ -195,25 +277,28 @@ public class Ex1 {
 
     }
 
-
+    // this function is printing the matrix (the board)
     private static void printMatrix(List<List<String>> matrix) {
         for (List<String> row : matrix) {
             System.out.println(row);
         }
     }
 
-
     // BFS algorithm
     public static Node BFS(Node n, List<List<String>> goal, boolean open) {
 
+        // creating all the necessary structure
         Queue<Node> L = new LinkedList<>();
         Hashtable<List<List<String>>, Node> Lhash = new Hashtable<>();
         Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
+
+        // add the first node to the lists
         L.add(n);
         Lhash.put(n.getMatrix(),n);
 
         while(!L.isEmpty()) {
 
+            // print the open list if the input said so
             if(open){
                 System.out.println("Printing open list:");
                 for (Node node : L) {
@@ -224,6 +309,7 @@ public class Ex1 {
             Node currNode = L.poll();
             Lhash.remove(currNode.getMatrix());
             hash.put(currNode.getMatrix(), currNode);
+            // run trow all the possible next steps
             for(int i=0; i<3; i++) {
                 for(int j=0; j<3; j++) {
                     int x;
@@ -240,21 +326,19 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get((i+3-1)%3).set(j, ball) ;
-
+                        Node newNode = new Node(currNode, temp);
+                        num++; // count creating node
                         if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
-                            Node newNode = new Node(currNode, temp);
-                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
                             newNode.add_move(x, step, "up", ((i+3-1)%3), j);
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
                             }
+                            // add to the list so will be process
                             L.add(newNode);
                             Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-//                            System.out.println();
-//                            printMatrix(temp);
                         }
                     }
 
@@ -270,21 +354,19 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get((i+1)%3).set(j, ball);
-
+                        Node newNode = new Node(currNode, temp);
+                        num++; // count creating node
                         if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
-                            Node newNode = new Node(currNode, temp);
-                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                             newNode.add_move(x, step, "down", ((i+1)%3), j);
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
                             }
+                            // add to the list so will be process
                             L.add(newNode);
                             Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-//                            System.out.println();
-//                            printMatrix(temp);
                         }
                     }
 
@@ -300,21 +382,19 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get(i).set(((j +1)%3), ball);
-
+                        Node newNode = new Node(currNode, temp);
+                        num++; // count creating node
                         if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
-                            Node newNode = new Node(currNode, temp);
-                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j +1)%3+1)+")";
                             newNode.add_move(x, step, "right", i, ((j +1)%3));
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
                             }
+                            // add to the list so will be process
                             L.add(newNode);
                             Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-//                            System.out.println();
-//                            printMatrix(temp);
                         }
                     }
 
@@ -330,66 +410,71 @@ public class Ex1 {
                         String ball = temp.get(i).get(j);
                         temp.get(i).set(j, "_");
                         temp.get(i).set(((j +3-1)%3), ball) ;
-
+                        Node newNode = new Node(currNode, temp);
+                        num++; // count creating node
                         if(!hash.containsKey(temp) && !Lhash.containsKey(temp)) {
-                            Node newNode = new Node(currNode, temp);
-                            num++; // count creating node
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                             newNode.add_move(x, step, "left", i, ((j +3-1)%3));
                             if (newNode.is_equals(goal)) {
                                 newNode.found_goal(num);
                                 return newNode;
                             }
+                            // add to the list so will be process
                             L.add(newNode);
                             Lhash.put(newNode.getMatrix(), newNode);
                             hash.put(temp, newNode);
-//                            System.out.println();
-//                            printMatrix(temp);
                         }
                     }
                 }
             }
         }
-        //System.out.println("return here");
         return n;
     }
-
 
     // DFID algorithm
     public static Node DFID(Node n, List<List<String>> goal, boolean open) {
 
+        // start with 1=1
         int depth = 1;
 
         while(depth > 0) {
             Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
-            depth++;
             Node result = Limited_DFS(n, goal, depth, hash, open);
+            depth++;
             if(result.is_equals(goal)) {
-                return  result; // I need to make sure this is  ok !!!!!!!!!!!!!!
+                return  result;
+            }
+            // stop if there is no solution
+            if(num >= 362880){
+                // 9! = 362880 is the max num of matrix that we can creat (each "R" is different from the other...)
+                return n;
             }
         }
         return n;
     }
 
-
     // the second function of DFID algorithm
     public static Node Limited_DFS(Node n, List<List<String>> goal, int limit, Hashtable<List<List<String>>, Node> hash, boolean open) {
 
+        // check if found the goal
         if(n.is_equals(goal)) {
             n.found_goal(num);
             return n;
         }
 
+        // check if got to the mav depth this iteration
         else if(limit == 0){
             n.set_isCutoff(true);
             return n;
         }
 
+        // check the next staeps
         else {
             List<List<String>> mat = n.getMatrix();
             hash.put(mat, n);
             boolean isCutoff = false;
 
+            // run throw all the options t the next step
             for(int i=0; i<3; i++) {
                 for(int j=0; j<3; j++) {
                     int x;
@@ -412,9 +497,11 @@ public class Ex1 {
                             g.add_move(x, step, "up", ((i+3-1)%3), j);
                             Node result = Limited_DFS(g, goal, limit-1, hash, open);
 
+                            // check if found the goal
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
                             }
+                            // check if this is the goal
                             else if (result.is_equals(goal)) {
                                 result.found_goal(num);
                                 return result;
@@ -440,10 +527,11 @@ public class Ex1 {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                             g.add_move(x, step, "down", ((i+1)%3), j);
                             Node result = Limited_DFS(g, goal, limit-1, hash, open);
-
+                            // check if found the goal
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
                             }
+                            // check if this is the goal
                             else if (result.is_equals(goal)) {
                                 result.found_goal(num);
                                 return result;
@@ -469,10 +557,11 @@ public class Ex1 {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
                             g.add_move(x, step, "right", i, ((j +1)%3));
                             Node result = Limited_DFS(g, goal, limit-1, hash, open);
-
+                            // check if found the goal
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
                             }
+                            // check if this is the goal
                             else if (result.is_equals(goal)) {
                                 result.found_goal(num);
                                 return result;
@@ -498,10 +587,11 @@ public class Ex1 {
                             String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                             g.add_move(x, step, "left", i, ((j +3-1)%3));
                             Node result = Limited_DFS(g, goal, limit-1, hash, open);
-
+                            // check if found the goal
                             if (result.get_isCutoff()) {
                                 isCutoff = true;
                             }
+                            // check if this is the goal
                             else if (result.is_equals(goal)) {
                                 result.found_goal(num);
                                 return result;
@@ -510,6 +600,7 @@ public class Ex1 {
                     }
                 }
             }
+            // print the open list if the input said so
             if(open){
                 System.out.println("Printing open list:");
                 for (List<List<String>> key : hash.keySet()) {
@@ -528,9 +619,11 @@ public class Ex1 {
     // DFBnB algorithm
     public static Node DFBnB(Node start, List<List<String>> goal, boolean open) {
 
+        // creating all the necessary structure
         Stack<Node> stack = new Stack<>();
         Hashtable<List<List<String>>, Node> hash = new Hashtable<>();
 
+        // calculate the heuristic and declare the threshold to be max int
         start.set_h(h(start, goal));
         stack.push(start);
         hash.put(start.getMatrix(), start);
@@ -538,7 +631,12 @@ public class Ex1 {
         Node result = new Node();
 
         while(!stack.isEmpty()) {
-
+            // if there is no solution so after creating more nodes than the number of optional nodes we should stop
+            if(num >= 362880){
+                // 9! = 362880 is the max num of matrix that we can creat (each "R" is different from the other...)
+                return start;
+            }
+            // printing the open list if the input said so
             if(open){
                 System.out.println("Printing open list:");
                 for (Node node : stack) {
@@ -546,15 +644,19 @@ public class Ex1 {
                     printMatrix(node.getMatrix());
                 }
             }
+            // take out the next node to process
             Node n = stack.pop();
+            // check if already was processed
             if(n.get_out()) {
                 hash.remove(n.getMatrix());
             }
             else {
+                // mark as processed
                 n.mark_out();
                 stack.push(n);
                 ArrayList<Node> N = new ArrayList<>();
 
+                // run throw all the possible next steps
                 for(int i=0; i<3; i++) {
                     for(int j=0; j<3; j++) {
 
@@ -571,15 +673,13 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get((i+3-1)%3).set(j, ball) ;
-//                            Node newNode = new Node(n, temp);
-//                            num++; // count creating node
+                            Node newNode = new Node(n, temp);
+                            num++; // count creating node
+                            // check if already in the hash
                             if(!hash.containsKey(temp)) {
-                                Node newNode = new Node(n, temp);
-                                num++; // count creating node
+                                // set the node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
                                 newNode.add_move(x, step, "up", ((i+3-1)%3), j);
-                                System.out.println();
-                                printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
                                 N.add(newNode);
                             }
@@ -597,15 +697,13 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get((i+1)%3).set(j, ball) ;
-//                            Node newNode = new Node(n, temp);
-//                            num++; // count creating node
+                            Node newNode = new Node(n, temp);
+                            num++; // count creating node
+                            // check if already in the hash
                             if(!hash.containsKey(temp)) {
-                                Node newNode = new Node(n, temp);
-                                num++; // count creating node
+                                // set the node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                                 newNode.add_move(x, step, "down", ((i+1)%3), j);
-                                System.out.println();
-                                printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
                                 N.add(newNode);
                             }
@@ -623,15 +721,13 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get(i).set((j+1)%3, ball) ;
-//                            Node newNode = new Node(n, temp);
-//                            num++; // count creating node
+                            Node newNode = new Node(n, temp);
+                            num++; // count creating node
+                            // check if already in the hash
                             if(!hash.containsKey(temp)) {
-                                Node newNode = new Node(n, temp);
-                                num++; // count creating node
+                                // set the node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
                                 newNode.add_move(x, step, "right", i, ((j +1)%3));
-                                System.out.println();
-                                printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
                                 N.add(newNode);
                             }
@@ -649,15 +745,13 @@ public class Ex1 {
                             String ball = temp.get(i).get(j);
                             temp.get(i).set(j, "_");
                             temp.get(i).set((j+3-1)%3, ball) ;
-//                            Node newNode = new Node(n, temp);
-//                            num++; // count creating node
+                            Node newNode = new Node(n, temp);
+                            num++; // count creating node
+                            // check if already in the hash
                             if(!hash.containsKey(temp)) {
-                                Node newNode = new Node(n, temp);
-                                num++; // count creating node
+                                // set the node
                                 String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                                 newNode.add_move(x, step, "left", i, ((j +3-1)%3));
-                                System.out.println();
-                                printMatrix(temp);
                                 newNode.set_h(h(newNode, goal));
                                 N.add(newNode);
                             }
@@ -665,49 +759,36 @@ public class Ex1 {
                     }
                 }
 
+                // sort the array by the f of each node
                 Collections.sort(N);
+                // creat new array so instead of removing from the original I will add only the necessary nodes to the new one
                 ArrayList<Node> temp = new ArrayList<>();
 
                 Iterator<Node> iter = N.iterator();
                 while(iter.hasNext()) {
                     Node g = iter.next();
                     int f = h(g, goal) + g.get_cost();
+                    // if we got to f that bigger than t so this node and the next ones aren't good enough
                     if(f >= t) {
-//                        // remove g and all the nodes after it from N
-//                        while (iter.hasNext()) {
-//                            iter.next();
-//                            iter.remove();
-//                        }
                         break;
                     }
-                    else if(hash.containsKey(g.getMatrix()) && g.get_out()) {
-//                        iter.remove(); // where the iter go ??? should I do i-1 ??????????????
-                    }
+                    // if this node is in the hash but wasn't processed
                     else if(hash.containsKey(g.getMatrix()) && !g.get_out()) {
                         int fg_tag = h(hash.get(g.getMatrix()), goal) + hash.get(g.getMatrix()).get_cost();
-//                        if(fg_tag <= f) {
-//                            iter.remove(); // where the iter go ??? should I do i-1 ??????????????
-//                        }
-//                        else {
-//                            stack.remove(hash.get(g.getMatrix())); // is it will be ok ???????
-//                            hash.remove(g.getMatrix());
-//                        }
+                        // if the f of the node that in the hash is bigger, so we will switch them
                         if(fg_tag > f){
-                            stack.remove(hash.get(g.getMatrix())); // is it will be ok ???????
+                            stack.remove(hash.get(g.getMatrix()));
                             hash.remove(g.getMatrix());
                             temp.add(g);
                         }
                     }
+                    // if we found the goal we can stop for this array because the next nodes have bigger f so if they are goal they aren't better
                     else if(g.is_equals(goal)) { // if we reached here, f(g) < t
                         t = f;
                         result = g;
-                        // remove g and all the nodes after it from N
-//                        while (iter.hasNext()) {
-//                            iter.next();
-//                            iter.remove();
-//                        }
                         break;
                     }
+                    // iff none of the above so add this node to the new array, so we can process it later
                     else{
                         temp.add(g);
                     }
@@ -721,17 +802,20 @@ public class Ex1 {
 
                 }
             }
+
         }
         return result;
     }
 
-    // A* algorithm
+    // A* algorithm.
     public static Node AStar(Node start, List<List<String>> goal, boolean open) {
 
+        // creating all the necessary structure
         Hashtable<List<List<String>>, Node> openList = new Hashtable<>();
         PriorityQueue<Node> openQueue = new PriorityQueue<>();
         Hashtable<List<List<String>>, Node> closeList = new Hashtable<>();
 
+        // calculate the heuristic and add to the open list
         start.set_h(h(start, goal));
 
         openList.put(start.getMatrix(), start);
@@ -739,6 +823,7 @@ public class Ex1 {
 
         while(!openQueue.isEmpty()){
 
+            // print the open list if the input said so
             if(open){
                 System.out.println("Printing open list:");
                 for (Node node : openQueue) {
@@ -750,12 +835,14 @@ public class Ex1 {
             Node current = openQueue.poll();
             openList.remove(current.getMatrix());
 
+            // check if we found the goal
             if(current.is_equals(goal)){
                 return current;
             }
 
             closeList.put(current.getMatrix(), current);
 
+            // run trow all the possible next steps
             for(int i=0; i<3; i++){
                 for(int j=0; j<3; j++){
                     int x;
@@ -776,17 +863,24 @@ public class Ex1 {
                                 Node newNode = new Node(current, temp);
                                 num++; // count creating node
                                 if (newNode.is_equals(goal)) {
+                                    // set the node
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 3 - 1) % 3 + 1) + "," + (j + 1) + ")";
                                     newNode.add_move(x, step, "up", ((i + 3 - 1) % 3), j);
                                     return newNode;
                                 }
+                                // calculate the node h and f
                                 newNode.set_h(h(newNode, goal));
                                 int f = newNode.get_f();
+                                // check if is in the open list
                                 if (openList.containsKey(temp)) {
                                     continue;
-                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                }
+                                // check if in the close list and which one have bigger f
+                                else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
                                     continue;
-                                } else {
+                                }
+                                // set the node and add to the open list so will be process
+                                else {
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 3 - 1) % 3 + 1) + "," + (j + 1) + ")";
                                     newNode.add_move(x, step, "up", ((i + 3 - 1) % 3), j);
                                     openList.put(temp, newNode);
@@ -811,17 +905,23 @@ public class Ex1 {
                                 Node newNode = new Node(current, temp);
                                 num++; // count creating node
                                 if (newNode.is_equals(goal)) {
+                                    // set the node
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 1) % 3 + 1) + "," + (j + 1) + ")";
                                     newNode.add_move(x, step, "down", ((i + 1) % 3), j);
                                     return newNode;
                                 }
+                                // calculate the node h and f
                                 newNode.set_h(h(newNode, goal));
                                 int f = newNode.get_f();
                                 if (openList.containsKey(temp)) {
                                     continue;
-                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                }
+                                // check if in the close list and which one have bigger f
+                                else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
                                     continue;
-                                } else {
+                                }
+                                // set the node and add to the open list so will be process
+                                else {
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + ((i + 1) % 3 + 1) + "," + (j + 1) + ")";
                                     newNode.add_move(x, step, "down", ((i + 1) % 3), j);
                                     openList.put(temp, newNode);
@@ -846,17 +946,23 @@ public class Ex1 {
                                 Node newNode = new Node(current, temp);
                                 num++; // count creating node
                                 if (newNode.is_equals(goal)) {
+                                    // set the node
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 1) % 3 + 1) + ")";
                                     newNode.add_move(x, step, "right", i, ((j + 1) % 3));
                                     return newNode;
                                 }
+                                // calculate the node h and f
                                 newNode.set_h(h(newNode, goal));
                                 int f = newNode.get_f();
                                 if (openList.containsKey(temp)) {
                                     continue;
-                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                }
+                                // check if in the close list and which one have bigger f
+                                else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
                                     continue;
-                                } else {
+                                }
+                                // set the node and add to the open list so will be process
+                                else {
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 1) % 3 + 1) + ")";
                                     newNode.add_move(x, step, "right", i, ((j + 1) % 3));
                                     openList.put(temp, newNode);
@@ -881,17 +987,23 @@ public class Ex1 {
                                 Node newNode = new Node(current, temp);
                                 num++; // count creating node
                                 if (newNode.is_equals(goal)) {
+                                    // set the node
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 3 - 1) % 3 + 1) + ")";
                                     newNode.add_move(x, step, "left", i, ((j + 3 - 1) % 3));
                                     return newNode;
                                 }
+                                // calculate the node h and f
                                 newNode.set_h(h(newNode, goal));
                                 int f = newNode.get_f();
                                 if (openList.containsKey(temp)) {
                                     continue;
-                                } else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
+                                }
+                                // check if in the close list and which one have bigger f
+                                else if (closeList.containsKey(temp) && closeList.get(temp).get_f() < f) {
                                     continue;
-                                } else {
+                                }
+                                // set the node and add to the open list so will be process
+                                else {
                                     String step = "(" + (i + 1) + "," + (j + 1) + "):" + ball + ":(" + (i + 1) + "," + ((j + 3 - 1) % 3 + 1) + ")";
                                     newNode.add_move(x, step, "left", i, ((j + 3 - 1) % 3));
                                     openList.put(temp, newNode);
@@ -989,65 +1101,87 @@ public class Ex1 {
         return totalCost;
     }
 
-
     //IDA* algorithm
     public static Node IDA(Node start, List<List<String>> goal, boolean open){
 
+        // calculate the heuristics and set the threshold
         int h = h(start, goal);
         start.set_h(h);
         int threshold = start.get_f();
 
         while(true){
+            // creating the necessary structure
             Stack<Node> stack = new Stack<>();
             stack.push(start);
 
+            // call the dfs function
             int result = dfs(stack, goal, threshold, open);
             if(result == -1){
+                // we found the goal and the goal node is the first in the stack
                 return stack.pop();
             }
             if(result == Integer.MAX_VALUE){
                 return start;
             }
-
+            // if there is no solution so after creating more than the possible amount of node we should stop
+            if(num >= 362880){
+                // 9! = 362880 is the max num of matrix that we can creat (each "R" is different from the other...)
+                return start;
+            }
             threshold = result;
         }
     }
 
-
-    public static int dfs(Stack<Node> stack, List<List<String>> goal, int threshhold, boolean open) {
+    // the dfs of the IDA* algorithm
+    public static int dfs(Stack<Node> stack, List<List<String>> goal, int threshold, boolean open) {
         Node current = stack.peek();
 
+        // check if we found the goal (stopping state)
         if (current.is_equals(goal)) {
             return -1; // goal found
         }
 
+        // defining the start threshold
         int min = Integer.MAX_VALUE;
 
+        // run throw all the possible next steps
         for (Node neighbor : getNeighbors(current, goal)){
+            // loop avoidance, if already in the stack so skip
             if(isInPath(stack, neighbor)){
                 continue;
             }
 
+            // calculate the f of the node
             int f = neighbor.get_f();
-            if(f>threshhold){
+            if(f>threshold){
                 min = Math.min(min, f);
                 continue;
             }
 
+            // add this node to the stack and call dfs so will be processed
             stack.push(neighbor);
-            int result = dfs(stack, goal, threshhold, open);
+            int result = dfs(stack, goal, threshold, open);
+            // check if found goal
             if(result == -1){
                 return -1;
             }
             min = Math.min(min, result);
+
+            // printing the open list if the input said so
+            if(open){
+                System.out.println("Printing open list:");
+                for (Node node : stack) {
+                    System.out.println();
+                    printMatrix(node.getMatrix());
+                }
+            }
+
             stack.pop();
-
         }
-
         return min;
-
     }
 
+    // check if the node is already was visited (loop avoidance)
     private static boolean isInPath(Stack<Node> stack, Node neighbor) {
         for(Node node : stack){
             if(node.getMatrix().equals(neighbor.getMatrix())){
@@ -1057,11 +1191,12 @@ public class Ex1 {
         return false;
     }
 
-
+    // return a list of all the neighbors of the node for the IDA* algorithm
     public static List<Node> getNeighbors(Node node, List<List<String>> goal){
 
         ArrayList<Node> neighbors =new ArrayList<>();
 
+        // run throw all the possible positions
         for(int i=0; i<3; i++) {
             for(int j=0; j<3; j++) {
 
@@ -1080,6 +1215,7 @@ public class Ex1 {
                     temp.get((i+3-1)%3).set(j, ball);
                     Node g = new Node(node, temp);
                     num++;
+                    // set node
                     g.set_h(h(g,goal));
                     String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+3-1)%3+1)+","+(j+1)+")";
                     g.add_move(x, step, "up", ((i+3-1)%3), j);
@@ -1101,6 +1237,7 @@ public class Ex1 {
                     temp.get((i+1)%3).set(j, ball);
                     Node g = new Node(node, temp);
                     num++;
+                    // set node
                     g.set_h(h(g,goal));
                     String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+((i+1)%3+1)+","+(j+1)+")";
                     g.add_move(x, step, "down", ((i+1)%3), j);
@@ -1123,6 +1260,7 @@ public class Ex1 {
                     temp.get(i).set((j+1)%3, ball);
                     Node g = new Node(node, temp);
                     num++;
+                    // set node
                     g.set_h(h(g,goal));
                     String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+1)%3+1)+")";
                     g.add_move(x, step, "right", i, ((j +1)%3));
@@ -1144,6 +1282,7 @@ public class Ex1 {
                     temp.get(i).set((j+3-1)%3, ball);
                     Node g = new Node(node, temp);
                     num++;
+                    // set node
                     g.set_h(h(g,goal));
                     String step = "("+(i+1)+","+(j+1)+"):"+ball+":("+(i+1)+","+((j+3-1)%3+1)+")";
                     g.add_move(x, step, "left", i, ((j +3-1)%3));
